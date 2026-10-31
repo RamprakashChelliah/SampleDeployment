@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\workflows\dotnet-CI.yml" />
+    <None Include=".github\workflows\dotnet.yml" />
   </ItemGroup>
 
 </Project>
