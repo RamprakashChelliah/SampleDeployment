@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".github\workflows\dotnet-CI.yml" />
+  </ItemGroup>
+
 </Project>

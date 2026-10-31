@@ -1,0 +1,34 @@
+name: dotnet deployment
+
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubundu-latest
+
+    steps:
+      - name: Checkout application
+        uses: actions/checkout@v4
+      - name: Install .Net
+        uses: actions/setup-dotnet@v4
+        with: 
+          dotnet-version: '10.0.x'
+
+      - name: Restore nuget
+        run: dotnet restore
+
+      - name: Build application
+        run: dotnet build --configuration Release --no-restore
+      
+      - name: Run test
+        run: dotnet test -- configuration Release --no-build
+
+      - name: Run application
+        run: dotnet run
