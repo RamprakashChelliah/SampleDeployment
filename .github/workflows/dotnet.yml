@@ -29,6 +29,3 @@ jobs:
       
       - name: Run test
         run: dotnet test -- configuration Release --no-build
-
-      - name: Run application
-        run: dotnet run
