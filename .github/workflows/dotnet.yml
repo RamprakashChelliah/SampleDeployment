@@ -27,23 +27,47 @@ jobs:
       - name: Build application
         run: dotnet build --configuration Release --no-restore
 
+      - name: Publish
+        run: dotnet publish --configuration Release --no-build -o ./publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: webapi-publish
+          path: ./publish/
+    
+  verify-artifact:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: webapi-publish
+          path: ./publish/
+
+      - name: Verify downloaded files
+        run: ls -la ./publish/
+
   test:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout application
+      - name: download source code
         uses: actions/checkout@v4
+
       - name: Install .Net
         uses: actions/setup-dotnet@v4
-        with: 
-          dotnet-version: '10.0.x'
+        with:
+          dotnet-version: 10.0.x
 
-      - name: Restore nuget
+      - name: Restore buget
         run: dotnet restore
 
       - name: Build application
         run: dotnet build --configuration Release --no-restore
-      
+
       - name: Run test
         run: dotnet test -- configuration Release --no-build
