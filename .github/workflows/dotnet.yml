@@ -51,7 +51,7 @@ jobs:
         run: ls -la ./publish/
 
   test:
-    needs: build
+    needs: verify-artifact
     runs-on: ubuntu-latest
 
     steps:
